@@ -34,8 +34,13 @@ fn frame(mut ctx gg.Context) {
     ctx.begin()
     ws := gg.window_size()
     ww, wh := f32(ws.width), f32(ws.height)
+
+    height_div := wh/16
+		draw_text_box(mut ctx, ww/10, height_div, 8*ww/10, 3*height_div, "今日は This is some text! サヨナラ")
+		draw_text_box(mut ctx, ww/10, 5*height_div, 8*ww/10, 3*height_div, "今日は This is some text! サヨナラ")
+
+		// draw_text_box(mut ctx, ww/10, wh/10, 8*ww/10, 4*wh/10, "今日は This is some text! サヨナラ")
     // ctx.draw_text(0, 0, "今日は This is some text!", color: gx.dark_green, bold: true, size: 32)
-		draw_text_box(mut ctx, ww/10, wh/10, 8*ww/10, 4*wh/10, "今日は This is some text! サヨナラ")
     // ctx.draw_rect_filled(8/10*awidth, 1/10*aheight, 8/10*awidth, 4/10*aheight, gx.green)
     // ctx.draw_rect_filled(100, 100, 100, 100, gx.green)
     ctx.end()
