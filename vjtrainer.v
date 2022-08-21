@@ -36,20 +36,23 @@ fn frame(mut ctx gg.Context) {
     ww, wh := f32(ws.width), f32(ws.height)
 
     height_div := wh/16
-		draw_text_box(mut ctx, ww/10, height_div, 8*ww/10, 3*height_div, "今日は This is some text! サヨナラ")
-		draw_text_box(mut ctx, ww/10, 5*height_div, 8*ww/10, 3*height_div, "今日は This is some text! サヨナラ")
+		draw_text_box(mut ctx, ww/10, height_div,   8*ww/10, 3*height_div, "今日は This is some text! サヨナラ1")
+		draw_text_box(mut ctx, ww/10, 5*height_div, 8*ww/10, 3*height_div, "今日は This is some text! サヨナラ2")
+    draw_text_box(mut ctx, ww/10, 9*height_div, 8*ww/10, 3*height_div, "今日は This is some text! サヨナラ3. This one is particularly long too!")
+    draw_audio_play_button(mut ctx, ww/10, 13*height_div, 2*height_div) 
 
-		// draw_text_box(mut ctx, ww/10, wh/10, 8*ww/10, 4*wh/10, "今日は This is some text! サヨナラ")
-    // ctx.draw_text(0, 0, "今日は This is some text!", color: gx.dark_green, bold: true, size: 32)
-    // ctx.draw_rect_filled(8/10*awidth, 1/10*aheight, 8/10*awidth, 4/10*aheight, gx.green)
-    // ctx.draw_rect_filled(100, 100, 100, 100, gx.green)
     ctx.end()
 }
 
 fn draw_text_box(mut ctx gg.Context, x f32, y f32, w f32, h f32, text string) {
 		// font_size := 16
     ctx.draw_rect_filled(x, y, w, h, abox_color)
-    ctx.draw_text(int(x), int(y), text, color: atxt_color, size: font_size)
+    ctx.draw_text(int(x), int(y), text + " " + ctx.text_width(text).str(), color: atxt_color, size: font_size)
+}
+
+fn draw_audio_play_button(mut ctx gg.Context, x f32, y f32, s f32) {
+    ctx.draw_square_filled(x, y, s, abox_color)
+    ctx.draw_triangle_filled(x + s/10, y + s/10, x + s*9/10, y + s/2, x + s/10, y + s*9/10, gx.red)
 }
 
 fn on_event(e &gg.Event, mut ctx gg.Context) {
