@@ -3,19 +3,83 @@ module main
 // import gg
 import gx
 import os
+import ui
 
+// constants values that do not change
 const (
-    awidth  = 600
-    aheight = 400
+    awidth  = 800
+    aheight = 800
     atitle  = "V Japanese Trainer"
-    afpath  = os.resource_abs_path(os.join_path('assets', 'fonts', 'Noto Sans Mono CJK JP Regular.otf')) 
+    afpath  = os.resource_abs_path(os.join_path('assets', 'fonts', "SourceHanSerif-Regular.otf")) 
     abg_color  = gx.white
     abox_color = gx.light_gray
     atxt_color = gx.black
 		font_size  = 16
 )
 
+[heap]
+struct App {
+mut:
+    window &ui.Window = unsafe { 0 }
+    jp_text string
+    en_text string
+}
+
+
 fn main() {
+    mut app := &App{jp_text: "こんにちは with English 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ.", en_text: "Hello there"}
+
+    println("Japanese Text is $app.jp_text and English Text is $app.en_text")
+    println("The font path is $afpath")
+    os.setenv("VUI_FONT", afpath, true)
+
+    app.window = ui.window(
+        width: aheight, height: aheight,
+        title: atitle,
+    )
+    
+    app.window.children << ui.column(
+        widths: f64(9*awidth/10),
+        alignment: .center,
+        spacing: 10
+        children: [
+            ui.textbox(
+                id: "jp_text"
+                height: aheight/8
+                is_wordwrap: true
+                is_multiline: true
+                text: &app.jp_text
+                is_sync: true
+                read_only: true
+                fitted_height: false
+            ),
+            ui.textbox(
+                id: "en_text"
+                height: aheight/8
+                is_wordwrap: true
+                is_multiline: true
+                text: &app.en_text
+                is_sync: true
+                read_only: true
+                fitted_height: false
+            ),
+            ui.row(
+                children: [
+                ui.button(
+                    text: "Next"
+                    // on_click: app.btn_click
+                    text_size: 1.0 / 20
+                    radius: .25
+                    hoverable: true
+                )
+                ]
+            )
+        ]
+    )
+
+    ui.run(app.window)
+
+    println("Finished Running!")
 }
 
 // fn main() {
