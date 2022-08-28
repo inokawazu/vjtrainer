@@ -37,7 +37,7 @@ fn main() {
     os.setenv("VUI_FONT", afpath, true)
 
     app.window = ui.window(
-        width: aheight, height: aheight,
+        width: awidth, height: aheight,
         title: atitle,
         on_init: app.on_init,
     )
