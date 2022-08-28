@@ -1,7 +1,5 @@
 module main
 
-// import gg
-import gx
 import os
 import ui
 import loader
@@ -12,10 +10,10 @@ const (
     aheight = 800
     atitle  = "V Japanese Trainer"
     afpath  = os.resource_abs_path(os.join_path('assets', 'fonts', "SourceHanSerif-Regular.otf")) 
-    abg_color  = gx.white
-    abox_color = gx.light_gray
-    atxt_color = gx.black
-		font_size  = 16
+    // abg_color  = gx.white
+    // abox_color = gx.light_gray
+    // atxt_color = gx.black
+		font_size  = 32
     empty_string = "Hidden"
 )
 
@@ -59,6 +57,7 @@ fn main() {
             is_sync: true
             read_only: true
             fitted_height: false
+            text_size: font_size
         ),
         ui.textbox(
             id: "en_text"
@@ -69,6 +68,7 @@ fn main() {
             is_sync: true
             read_only: true
             fitted_height: false
+            text_size: font_size
         ),
         ui.row(
             spacing: 5
