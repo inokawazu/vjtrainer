@@ -2,5 +2,8 @@ import loader
 
 fn main() {
     mut myloader := loader.load_default_loader(shuffle: true)
-    println(myloader.next()?)
+    
+    for _ in 0..10 {
+        println(myloader.next()?)
+    }
 }
