@@ -7,7 +7,7 @@ import loader
 // constants values that do not change
 const (
     awidth  = 800
-    aheight = 800
+    aheight = 500
     atitle  = "V Japanese Trainer"
     afpath  = os.resource_abs_path(os.join_path('assets', 'fonts', "SourceHanSerif-Regular.otf")) 
     // abg_color  = gx.white
@@ -51,7 +51,7 @@ fn main() {
         children: [
         ui.textbox(
             id: "jp_text"
-            height: aheight/8
+            height: aheight/3
             is_wordwrap: true
             is_multiline: true
             text: &app.jp_text
@@ -62,7 +62,7 @@ fn main() {
         ),
         ui.textbox(
             id: "en_text"
-            height: aheight/8
+            height: aheight/3
             is_wordwrap: true
             is_multiline: true
             text: &app.en_text
