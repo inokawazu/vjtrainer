@@ -41,6 +41,7 @@ fn main() {
         width: awidth, height: aheight,
         title: atitle,
         on_init: app.on_init,
+        on_key_down: app.on_key_down
     )
     
     app.window.children << ui.column(
@@ -76,7 +77,7 @@ fn main() {
             ui.button(
                 id: "en_reveal_button"
                 text: "英訳現す"
-                on_click: app.en_reveal
+                on_click: app.en_reveal_btn
                 text_size: 1.0 / 20
                 radius: .25
                 hoverable: true
@@ -104,15 +105,24 @@ fn (mut app App) on_init(window &ui.Window) {
     app.next_entry()
 }
 
-fn (app &App) en_reveal (btn &ui.Button) {
-    println("Revealed the English Text.")
+fn (app &App) en_reveal_btn (btn &ui.Button) {
+    app.en_reveal()
+}
+
+fn (app &App) en_reveal () {
     mut en_tb := app.window.textbox("en_text")
+    if en_tb.text != empty_string { return }
+
+    println("Revealed the English Text.")
     en_tb.set_text(app.en_text_cache)
 }
 
 fn (mut app App) en_hide () {
-    println("Hid the English Text.")
     mut en_tb := app.window.textbox("en_text")
+
+    if en_tb.text == empty_string { return }
+
+    println("Hid the English Text.")
 
     app.en_text_cache = app.en_text
     en_tb.set_text(empty_string)
@@ -125,11 +135,38 @@ fn (mut app App) next_entry() {
         println(err)
         return 
     }
-    println(entry)
+    // println(entry)
 
     mut jp_tb := app.window.textbox("jp_text")
     jp_tb.set_text(entry.jp)
     
     app.en_hide()
     app.en_text_cache = entry.en
+}
+
+fn (mut app App) prev_entry() {
+    entry := app.loader.prev() or {
+        println(err)
+        return 
+    }
+    // println(entry)
+
+    mut jp_tb := app.window.textbox("jp_text")
+    jp_tb.set_text(entry.jp)
+    
+    app.en_hide()
+    app.en_text_cache = entry.en
+}
+
+fn (mut app App) on_key_down(window &ui.Window, e ui.KeyEvent) {
+    println(e)
+    if e.action == 0 {
+        match e.key {
+            .right {app.next_entry()}
+            .left {app.prev_entry()}
+            .up {app.en_reveal()}
+            .down {app.en_hide()}
+            else {}
+        }
+    }
 }
