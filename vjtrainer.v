@@ -6,8 +6,6 @@ import os
 import ui
 import loader
 
-import loader
-
 // constants values that do not change
 const (
     awidth  = 800
@@ -29,12 +27,13 @@ mut:
     en_text_cache string
     en_text string
     tb_width int = 9*awidth/10
+    loader loader.Loader<loader.Entry> = loader.load_default_loader(shuffle: true)
 }
 
 
 fn main() {
 
-    mut app := &App{jp_text: "こんにちは with English 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ.", en_text: "Hello there"}
+    mut app := &App{}
 
     println("Japanese Text is $app.jp_text and English Text is $app.en_text")
     println("The font path is $afpath")
@@ -85,7 +84,7 @@ fn main() {
             ui.button(
                 id: "next_button"
                 text: "次ぎ"
-                on_click: app.next_entry
+                on_click: app.next_entry_btn
                 text_size: 1.0 / 20
                 radius: .25
                 hoverable: true
@@ -101,7 +100,8 @@ fn main() {
 }
 
 fn (mut app App) on_init(window &ui.Window) {
-    app.en_hide()
+    // app.en_hide()
+    app.next_entry()
 }
 
 fn (app &App) en_reveal (btn &ui.Button) {
@@ -118,6 +118,18 @@ fn (mut app App) en_hide () {
     en_tb.set_text(empty_string)
 }
 
-fn (mut app App) next_entry(nt &ui.Button) {
+fn (mut app App) next_entry_btn(nt &ui.Button) { app.next_entry() }
+
+fn (mut app App) next_entry() {
+    entry := app.loader.next() or {
+        println(err)
+        return 
+    }
+    println(entry)
+
+    mut jp_tb := app.window.textbox("jp_text")
+    jp_tb.set_text(entry.jp)
+    
     app.en_hide()
+    app.en_text_cache = entry.en
 }
