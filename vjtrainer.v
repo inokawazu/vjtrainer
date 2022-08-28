@@ -4,6 +4,9 @@ module main
 import gx
 import os
 import ui
+import loader
+
+import loader
 
 // constants values that do not change
 const (
@@ -30,6 +33,7 @@ mut:
 
 
 fn main() {
+
     mut app := &App{jp_text: "こんにちは with English 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ。 今日はいいだ.", en_text: "Hello there"}
 
     println("Japanese Text is $app.jp_text and English Text is $app.en_text")
