@@ -12,4 +12,4 @@ Popular Data Sources: [tangorin](https://tangorin.com/about)
 
 # Attribution
 
-- Data was take from the generous [Tatoeba Project](https://tatoeba.org/).
+Data was taken from the generous [Tatoeba Project](https://tatoeba.org/) and [The Kurohashi-Kawahara Lab in Kyoto University](https://nlp.ist.i.kyoto-u.ac.jp/EN/index.php?JEC%20Basic%20Sentence%20Data).
