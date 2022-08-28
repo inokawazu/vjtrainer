@@ -9,6 +9,7 @@ const (
 )
 
 pub struct Entry {
+pub:
     jp string
     en string
 }
@@ -40,16 +41,16 @@ pub fn (mut l Loader<T>) next() ?T {
     if l.current >= l.data.len {
         return error("Reached the last entry.")
     }
-    defer { l.current += 1 }
-    return l.data[l.current]
+    l.current += 1 
+    return l.data[l.current-1]
 }
 
 pub fn (mut l Loader<T>) prev() ?T {
     if l.current <= 0 {
         return error("Reached the first entry.")
     }
-    defer { l.current -= 1 }
-    return l.data[l.current]
+    l.current -= 1 
+    return l.data[l.current+1]
 }
 
 fn load_from_tsv(filename string) []Entry {
