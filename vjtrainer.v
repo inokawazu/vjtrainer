@@ -159,7 +159,6 @@ fn (mut app App) prev_entry() {
 }
 
 fn (mut app App) on_key_down(window &ui.Window, e ui.KeyEvent) {
-    println(e)
     if e.action == 0 {
         match e.key {
             .right {app.next_entry()}
