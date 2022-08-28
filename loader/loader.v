@@ -63,9 +63,3 @@ fn load_from_tsv(filename string) []Entry {
     }
     return entries
 }
-
-pub fn hello() {
-    println("The default tsv data file is $default_tsv")
-    entries := rand.shuffle_clone(load_from_tsv(default_tsv)) or {panic(err)}
-    println(entries[..10])
-}
