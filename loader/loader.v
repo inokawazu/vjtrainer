@@ -16,7 +16,7 @@ pub:
 
 struct Loader<T> {
 mut:
-	current int
+	current int = -1 // first next gives the 0th index
 	data    []T [required]
 }
 
@@ -42,11 +42,11 @@ pub fn new_loader<T>(data []T, nlc NewLoaderConfigs) Loader<T> {
 }
 
 pub fn (mut l Loader<T>) next() ?T {
-	if l.current >= l.data.len {
+	if l.current + 1 >= l.data.len {
 		return error('Reached the last entry.')
 	}
 	l.current += 1
-	return l.data[l.current - 1]
+	return l.data[l.current]
 }
 
 pub fn (mut l Loader<T>) prev() ?T {
@@ -54,7 +54,7 @@ pub fn (mut l Loader<T>) prev() ?T {
 		return error('Reached the first entry.')
 	}
 	l.current -= 1
-	return l.data[l.current + 1]
+	return l.data[l.current]
 }
 
 fn load_from_tsv(filename string) []Entry {
